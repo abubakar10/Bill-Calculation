@@ -1,0 +1,77 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: aquamarine;
+}
+.container{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 30px;
+    margin: auto;
+    margin-top: 150px;
+    background-color: white;
+    width:50%;
+    border-radius: 20px;
+    box-shadow:inset;
+
+}
+.container .left-coloumn{
+    width: 50%;
+}
+.container .left-coloumn .entities{
+    padding-bottom: 20px;
+}
+.container .left-coloumn .entities .textfield{
+    border-radius: 7px;
+    border:1px solid rgb(206, 203, 203);
+    width: 240px;
+    height: 23px;
+    
+}
+.container .left-coloumn .entities .enter-number{
+    width: 240px;
+    height: 23px;
+    border-radius: 7px;
+    border:1px solid rgb(206, 203, 203);
+
+}
+.container .left-coloumn .entities .calculate{
+    background-color: rgb(13, 115, 13);
+    padding: 10px 70px;
+    border-radius: 12px;
+    border: 1px solid white;
+    cursor: pointer;
+
+}
+.container .right-coloumn{
+    width: 50%;
+    background-color: rgb(32, 162, 32);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+.container .right-coloumn .tip-entities{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.container .right-coloumn .divider img{
+    width: 300px;
+    height: 25px;
+
+}
+.container .right-coloumn .reset-button{
+    background-color: rgb(13, 115, 13);
+    color: white;
+    padding: 10px 130px;
+    border-radius: 12px;
+    border: 1px solid white;
+
+}
+.container .right-coloumn .reset-button:hover{
+    background-color: rgb(64, 168, 64);
+    cursor: pointer;
+}

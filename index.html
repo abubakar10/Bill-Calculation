@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <div class="left-coloumn">
+        <div class="entities">
+            <h3 style="margin-bottom: 4px;">Bill</h3>
+        <input type="text" id="input" class="textfield">
+        </div>
+        <div class="entities">
+            <h3 style="margin-bottom: 4px;">Choose a Tip</h3>
+           
+        <input type="radio" name="tip" value="10">10%
+        <input type="radio" name="tip" value="15">15%
+        <input type="radio" name="tip" value="20">20%
+        <input type="radio" name="tip" value="25">25% 
+        </div>
+        <div class="entities">
+            <h3 style="margin: 6px;">Split by</h3>
+        <input type="number" id="number" class="enter-number" min="1" max="20" placeholder="Number of people">
+       
+        </div>
+        <div class="entities">
+            <button onclick="tipcalcy()" class="calculate" id="button" disabled>Calculate</button>
+        </div>
+    </div>
+
+    <div class="right-coloumn">
+        <div class="tip-entities">
+            <h3 >Base</h3>
+            <h2 id="base-amount">0</h2>
+        </div>
+        <div class="tip-entities">
+            <h3>Tip</h3>
+            <h2 id="tip-amount">0</h2>
+        </div>
+        <div class="tip-entities">
+            <h3>Per person</h3>
+            <h2 id="per-person-amount">0</h2>
+        </div>
+        <div class="divider">
+            <img src="./122224_page-divider-png.png" alt="">
+        </div>
+        <div class="tip-entities">
+            <h3>Total bill</h3>
+            <h2 id="total-amount" type >0</h2>
+            
+        </div>
+        <button onclick="resetFields()" class="reset-button" id="reset-button" disabled>Reset</button>
+    </div>
+
+  </div>
+  
+    <script>
+
+        let isCalculated = false;
+
+        // Enable/disable the calculate button when inputs change
+        const totalBill = document.getElementById("input");
+        const radios = document.getElementsByName("tip");
+        const splitBy = document.getElementById("number");
+        const calculateButton = document.getElementById("button");
+        const resetButton = document.getElementById("reset-button");
+
+        function enableButton() {
+            const isBillEntered = totalBill.value.trim() !== "";
+            const isRadioChecked = Array.from(radios).some(radio => radio.checked);
+            const isSplitEntered = splitBy.value.trim() !== "" && parseInt(splitBy.value) >= 1;
+
+            calculateButton.disabled = !(isBillEntered && isRadioChecked && isSplitEntered);
+        }
+
+        // Event listeners to trigger button enable check
+        totalBill.addEventListener("input", enableButton);
+        splitBy.addEventListener("input", enableButton);
+        radios.forEach(radio => radio.addEventListener("change", enableButton));
+
+        // Tip and bill calculation
+        function tipcalcy() {
+            const totalBillValue = parseFloat(totalBill.value);
+            const tipPercent = document.querySelector('input[name="tip"]:checked');
+            const splitByValue = parseInt(splitBy.value);
+
+            if (isNaN(totalBillValue) || !tipPercent || isNaN(splitByValue) || splitByValue < 1) {
+                return;
+            }
+
+            const tipValue = (totalBillValue * parseFloat(tipPercent.value)) / 100;
+            const totalWithTip = totalBillValue + tipValue;
+            const perPersonAmount = totalWithTip / splitByValue;
+
+            // Update values in the right column
+            document.getElementById('base-amount').innerText = totalBillValue.toFixed(2);
+            document.getElementById('tip-amount').innerText = tipValue.toFixed(2);
+            document.getElementById('total-amount').innerText = totalWithTip.toFixed(2);
+            document.getElementById('per-person-amount').innerText = perPersonAmount.toFixed(2);
+
+            // Set isCalculated to true and enable reset button
+            isCalculated = true;
+            resetButton.disabled = false; // Enable reset button only after calculation
+        }
+
+        function resetFields() {
+            if (isCalculated) {
+                clearField();
+                clearRadio();
+                resetButton.disabled = true; // Disable reset button after reset
+                isCalculated = false; // Reset the flag
+            }
+        }
+
+        function clearField(){
+            document.getElementById('input').value='';
+            document.getElementById('number').value='';
+            document.getElementById('base-amount').innerText = '0';
+            document.getElementById('tip-amount').innerText = '0';
+            document.getElementById('per-person-amount').innerText = '0';
+            document.getElementById('total-amount').innerText = '0';
+        }
+        
+        function clearRadio(){
+            var radios = document.getElementsByName('tip');
+            radios.forEach(radio => radio.checked = false);
+        }
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
